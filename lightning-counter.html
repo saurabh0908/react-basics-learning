@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Color Card</title>
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style media="screen">
+      #container {
+        padding: 50px;
+        background-color: #FFF;
+
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script type="text/babel">
+
+      class LightningCounter extends React.Component {
+
+        constructor(props) {
+          super(props);
+          this.state = { strikes: 0};
+        }
+
+        componentDidMount(){
+          this.timerID = setInterval(
+            () => this.tick(), 1000
+          );
+        }
+
+        componentWillUnmount() {
+          clearInterval(this.timerID);
+        }
+
+        tick() {
+            this.setState({
+              strikes: this.state.strikes + 100
+            });
+        }
+
+
+        render() {
+          let counterStyle = {
+            color: "#66FFFF",
+            fontSize: 50
+          }
+          let count = this.state.strikes.toLocaleString();
+          return (
+            <h1 style={counterStyle}>{count}</h1>
+          );
+        }
+      }
+
+
+      class LightningDisplay extends React.Component {
+        render() {
+          let commonStyle = {
+            margin: 0,
+            padding: 0
+          }
+
+          let divStyle = {
+            width: 250,
+            textAlign: "center",
+            backgroundColor: "#020202",
+            padding: 40,
+            fontFamily:"sans-serif",
+            color: "#999",
+            borderRadius:10
+          }
+
+          let textStyles = {
+            emphasis : {
+              fontSize: 38,
+              ...commonStyle
+            },
+            smallEmphasis: {
+              ...commonStyle
+            },
+            small: {
+              fontSize: 17,
+              opacity: 0.5,
+              ...commonStyle
+            }
+          }
+          return (
+            <div style={divStyle}>
+              <LightningCounter/>
+              <h2 style={textStyles.smallEmphasis}>LIGHTNING STRIKES</h2>
+              <h2 style={textStyles.emphasis}>WORLDWIDE</h2>
+              <p style={textStyles.small}>(since you loaded this example)</p>
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(
+        <div>
+          <LightningDisplay/>
+        </div>,
+        document.getElementById('container')
+      );
+    </script>
+  </body>
+</html>
