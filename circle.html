@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Data in React</title>
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style media="screen">
+      #container {
+        padding: 50px;
+        background-color: #FFF;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+
+
+    <script type="text/babel">
+      class Circle extends React.Component {
+        render() {
+
+          let circleStyle = {
+            padding: 10,
+            margin: 20,
+            display: "inline-block",
+            backgroundColor: this.props.bgcolor,
+            borderRadius: "50%",
+            height: 100,
+            width: 100
+          }
+
+          return (
+            <div style={circleStyle}>
+
+            </div>
+          );
+        }
+      }
+
+      let destination = document.getElementById('container');
+      let theCircle = <Circle bgcolor="#58B3FF"/>;
+      let colors = ["#393E41", "#E94F37", "#1C89BF", "#A1D363","#85FFC7", "#297373", "#FF8552", "#A40E4C"];
+      let renderData = [];
+
+      function showCircle() {
+          let colors = ["#393E41", "#E94F37", "#1C89BF", "#A1D363"];
+          let ran = Math.floor(Math.random() * colors.length);
+          return <Circle bgcolor = {colors[ran]}/>;
+      }
+
+      for (let i = 0; i < colors.length; i++) {
+        let color = colors[i];
+        renderData.push(<Circle key={i + color} bgcolor={color}/>);
+      }
+
+      ReactDOM.render(
+        <div>
+          {renderData}
+        </div>,
+        destination
+      );
+    </script>
+  </body>
+
+</html>
